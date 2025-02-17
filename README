@@ -67,13 +67,85 @@ Note: Command-line arguments take precedence over environment variables.
 ## Directory Structure
 
 ```
-image-cropper/
-├── raw/              # Default input directory for scanned images
-├── output_images/    # Default output directory for cropped images
-├── crop.py           # Main script
-├── pyproject.toml    # Poetry configuration
-└── README.md         # This file
+crop-scanned-photos/
+├── raw/                    # Default input directory for scanned images
+├── output_images/          # Default output directory for cropped images
+├── examples/               # Default output directory for test images
+├── crop.py                 # Main script
+├── create_test_image.py    # Script to generate test images
+├── pyproject.toml          # Poetry configuration
+└── README.md               # This file
 ```
+
+## Test Images Generation
+
+The project includes a script to generate test images that simulate scanned photos with white borders. These test images are useful for development and testing of the cropping functionality.
+
+### Generating Test Images
+
+Use the `create_test_image.py` script to generate test images:
+
+```bash
+poetry run python create_test_image.py -n 4 -o test_4_photos.jpg -f examples
+```
+
+This will create a test image with 4 photos in the `examples` directory.
+
+### Running the Cropping Script on Test Images
+
+To run the cropping script on the test images, use the following command:
+
+```bash
+poetry run python crop.py --input-folder examples --output-folder examples/cropped
+```
+
+This will process the test images in the `examples` directory and save the cropped images in the `examples/cropped` directory.
+
+### Options:
+- `-n, --num_photos`: Number of photos to include (default: 4)
+- `-o, --output`: Output filename (default: test_N_scan.jpg where N is number of photos)
+- `-f, --folder`: Output folder path (default: examples)
+
+### Test Image Structure
+
+The generated test images have the following characteristics:
+- A4 scan proportions (2000x2800 pixels)
+- White background simulating scanner bed
+- Colored rectangles representing photos (for easy visual testing)
+- Automatic grid layout based on number of photos
+- 100px white margins between photos
+
+Example layout for 4 photos:
+![Example Test Image](examples/test_4_scan.jpg)
+
+After running the cropping script, the output directory will contain the following files:
+- test_1_scan.jpg (blue region)
+- test_2_scan.jpg (red region)
+- test_3_scan.jpg (green region)
+- test_4_scan.jpg (yellow region)
+
+Example output:
+![Example Cropped Image 1](examples/cropped/test_1_scan.jpg)
+![Example Cropped Image 2](examples/cropped/test_2_scan.jpg)
+![Example Cropped Image 3](examples/cropped/test_3_scan.jpg)
+![Example Cropped Image 4](examples/cropped/test_4_scan.jpg)
+
+### Expected Cropping Behavior
+
+When processing these test images, the cropping script should:
+1. Detect the boundaries between the white background and colored regions
+2. Create separate image files for each detected region
+3. Remove the white borders around each photo
+4. Preserve the original aspect ratio of each photo
+5. Name the output files based on the input filename with sequential numbering
+
+For example, processing `test_4_scan.jpg` should produce:
+- test_4_scan_1.jpg (blue region)
+- test_4_scan_2.jpg (red region)
+- test_4_scan_3.jpg (green region)
+- test_4_scan_4.jpg (yellow region)
+
+Each output image should contain only the colored rectangle without any white borders.
 
 ## Requirements
 
