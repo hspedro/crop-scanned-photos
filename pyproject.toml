@@ -1,14 +1,34 @@
 [tool.poetry]
-name = "image-cropper"
+name = "crop-scanned-photos"
 version = "0.1.0"
 description = "A tool to detect and crop multiple photos from scanned images"
-authors = ["Your Name <your.email@example.com>"]
+authors = ["Pedro Soares <pedrofigueiredoc@gmail.com>"]
 readme = "README.md"
+package-mode = true
+
+# Add this section to specify where your package code is located
+packages = [
+    { include = "crop_scanned_photos" },
+]
 
 [tool.poetry.dependencies]
-python = "^3.8"
-opencv-python = "^4.8.0"
+python = ">=3.8.1,<4.0"
+opencv-python = "^4.8.1.78"
+Pillow = "^10.1.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.3"
+pytest-cov = "^4.1.0"
+black = "^23.11.0"
+isort = "^5.12.0"
+mypy = "^1.7.0"
+flake8 = "^6.1.0"
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+testpaths = ["test"]
+python_files = ["test_*.py"]
+addopts = "-v"
