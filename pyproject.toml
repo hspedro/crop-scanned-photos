@@ -1,0 +1,14 @@
+[tool.poetry]
+name = "image-cropper"
+version = "0.1.0"
+description = "A tool to detect and crop multiple photos from scanned images"
+authors = ["Your Name <your.email@example.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+opencv-python = "^4.8.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

@@ -1,0 +1,87 @@
+# Image Cropper
+
+A Python tool that processes scanned images to automatically detect and crop multiple photos. Specifically designed for scanned images with white borders (as commonly produced by scanners), where multiple photos were scanned together on a single page. The tool will identify each individual photo and save them as separate files.
+
+## Features
+
+- Detects multiple photos in scanned images with white borders
+- Automatically crops and saves individual photos
+- Supports multi-threading for faster processing
+- Configurable via command-line arguments or environment variables
+- Supports various image formats (PNG, JPG, JPEG)
+
+## Installation
+
+1. Make sure you have Poetry installed ([Poetry Installation Guide](https://python-poetry.org/docs/#installation))
+
+2. Clone this repository:
+
+```bash
+git clone https://github.com/yourusername/image-cropper.git
+cd image-cropper
+```
+
+3. Install dependencies:
+
+```bash
+poetry install
+```
+
+## Usage
+
+### Command-Line Arguments
+
+```bash
+poetry run python crop.py --help
+```
+
+### Environment Variables
+
+You can also configure the tool using environment variables:
+
+Available arguments:
+- `--input-folder`: Input folder containing scanned images (default: "raw")
+- `--output-folder`: Output folder for cropped images (default: "output_images")
+- `--threads`: Number of processing threads (default: 1)
+- `--threshold-value`: Threshold value for image processing (default: 240)
+- `--threshold-max`: Maximum threshold value (default: 255)
+- `--min-contour-width`: Minimum contour width to process (default: 50)
+- `--min-contour-height`: Minimum contour height to process (default: 50)
+- `--allowed-extensions`: Comma-separated list of allowed file extensions (default: .png,.jpg,.jpeg)
+
+```bash
+export INPUT_FOLDER="scans"
+export OUTPUT_FOLDER="cropped"
+export THREADS="4"
+export THRESHOLD_VALUE="230"
+export THRESHOLD_MAX="255"
+export MIN_CONTOUR_WIDTH="100"
+export MIN_CONTOUR_HEIGHT="100"
+export ALLOWED_EXTENSIONS=".png,.jpg,.jpeg"
+
+poetry run python crop.py
+```
+
+Note: Command-line arguments take precedence over environment variables.
+
+## Directory Structure
+
+```
+image-cropper/
+├── raw/              # Default input directory for scanned images
+├── output_images/    # Default output directory for cropped images
+├── crop.py           # Main script
+├── pyproject.toml    # Poetry configuration
+└── README.md         # This file
+```
+
+## Requirements
+
+- Python 3.8 or higher
+- OpenCV (installed automatically via Poetry)
+
+## License
+
+MIT License
+
+Copyright (c) 2025 Pedro Soares
