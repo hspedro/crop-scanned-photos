@@ -5,8 +5,8 @@ description = "A tool to detect and crop multiple photos from scanned images"
 authors = ["Pedro Soares <pedrofigueiredoc@gmail.com>"]
 readme = "README.md"
 package-mode = true
+repository = "https://github.com/hspedro/crop-scanned-photos"
 
-# Add this section to specify where your package code is located
 packages = [
     { include = "crop_scanned_photos" },
 ]
