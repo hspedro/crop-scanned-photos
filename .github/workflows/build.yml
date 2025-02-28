@@ -1,0 +1,54 @@
+name: Build Package
+
+on:
+  workflow_call:
+    outputs:
+      artifact-name:
+        description: "Name of the artifact containing the built package"
+        value: ${{ jobs.build.outputs.artifact-name }}
+  pull_request:
+    branches: [ main ]
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    outputs:
+      artifact-name: dist
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.8'
+
+    - name: Install Poetry
+      uses: abatilo/actions-poetry@v4
+      with:
+        poetry-version: latest
+
+    - name: Setup virtualenv
+      run: |
+        poetry config virtualenvs.create true --local
+        poetry config virtualenvs.in-project true --local
+
+    - name: Install dependencies
+      run: poetry install
+
+    - name: Build package
+      run: poetry build
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: dist
+        path: dist/
+        retention-days: 1
+
+    - name: Check code quality
+      run: |
+        poetry run black --check crop_scanned_photos/
+        poetry run isort --check-only crop_scanned_photos/
