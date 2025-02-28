@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "crop-scanned-photos"
-version = "0.1.0"
+version = "0.1.1"
 description = "A tool to detect and crop multiple photos from scanned images"
 authors = ["Pedro Soares <pedrofigueiredoc@gmail.com>"]
 readme = "README.md"
