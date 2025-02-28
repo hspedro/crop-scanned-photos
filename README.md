@@ -21,8 +21,8 @@ A Python tool that processes scanned images to automatically detect and crop mul
 2. Clone this repository:
 
 ```bash
-git clone https://github.com/yourusername/image-cropper.git
-cd image-cropper
+git clone https://github.com/hspedro/crop-scanned-photos.git
+cd crop-scanned-photos
 ```
 
 3. Install dependencies:
