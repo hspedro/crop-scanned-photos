@@ -26,8 +26,14 @@ jobs:
         python-version: '3.8'
 
     - name: Install Poetry
+      uses: abatilo/actions-poetry@v4
+      with:
+        poetry-version: latest
+
+    - name: Setup virtualenv
       run: |
-        curl -sSL https://install.python-poetry.org | python3 -
+        poetry config virtualenvs.create true --local
+        poetry config virtualenvs.in-project true --local
 
     - name: Install dependencies
       run: poetry install
@@ -41,3 +47,8 @@ jobs:
         name: dist
         path: dist/
         retention-days: 1
+
+    - name: Check code quality
+      run: |
+        poetry run black --check crop_scanned_photos/
+        poetry run isort --check-only crop_scanned_photos/
